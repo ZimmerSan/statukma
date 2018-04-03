@@ -45,12 +45,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -71,10 +75,49 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-csv</artifactId>
+			<version>2.5.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160810</version>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- Generates the JPA static meta model -->
+			<plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>RELEASE</version>
+				<executions>
+					<execution>
+						<id>process</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<processors>
+								<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+							</processors>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-jpamodelgen</artifactId>
+						<version>4.3.8.Final</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
