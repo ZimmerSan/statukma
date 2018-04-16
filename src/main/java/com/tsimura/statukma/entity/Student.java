@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -40,5 +41,9 @@ public class Student extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Diploma diploma;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+    @JsonIgnore
+    private List<Enrollment> enrollments;
 
 }

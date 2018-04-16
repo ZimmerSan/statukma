@@ -2,6 +2,7 @@ package com.tsimura.statukma.service.impl;
 
 import com.tsimura.statukma.entity.Speciality;
 import com.tsimura.statukma.entity.Student;
+import com.tsimura.statukma.model.DetailedStudentModel;
 import com.tsimura.statukma.model.MinimizedStudentModel;
 import com.tsimura.statukma.model.helper.FilterRequest;
 import com.tsimura.statukma.persistence.BaseRepository;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class StudentServiceImpl extends AbstractServiceImpl<Student, MinimizedStudentModel, MinimizedStudentModel> implements StudentService {
+public class StudentServiceImpl extends AbstractServiceImpl<Student, MinimizedStudentModel, DetailedStudentModel> implements StudentService {
 
     private final StudentRepository repository;
 
@@ -31,13 +32,13 @@ public class StudentServiceImpl extends AbstractServiceImpl<Student, MinimizedSt
     }
 
     @Override
-    public Optional<MinimizedStudentModel> loadDetailed(Integer id) {
-        return repository.findById(id).map(MinimizedStudentModel::new);
+    public Optional<DetailedStudentModel> loadDetailed(Integer id) {
+        return repository.findById(id).map(DetailedStudentModel::new);
     }
 
     @Override
-    public List<MinimizedStudentModel> loadDetailedBulk(List<Integer> ids) {
-        return repository.findAllById(ids).stream().map(MinimizedStudentModel::new).collect(Collectors.toList());
+    public List<DetailedStudentModel> loadDetailedBulk(List<Integer> ids) {
+        return repository.findAllById(ids).stream().map(DetailedStudentModel::new).collect(Collectors.toList());
     }
 
     @Override

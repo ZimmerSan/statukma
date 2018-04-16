@@ -17,7 +17,8 @@ public class RepositoryConfig extends RepositoryRestConfigurerAdapter {
                 Faculty.class,
                 Diploma.class,
                 StudentCard.class,
-                Discipline.class
+                Discipline.class,
+                Enrollment.class
         );
     }
 }

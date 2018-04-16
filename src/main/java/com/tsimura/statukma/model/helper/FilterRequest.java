@@ -10,4 +10,6 @@ public class FilterRequest {
     private Integer specialityId;
     private Integer course;
 
+    private FIlterHelper.Order enrollmentOrder;
+
 }

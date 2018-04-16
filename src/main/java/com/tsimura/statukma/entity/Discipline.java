@@ -1,14 +1,18 @@
 package com.tsimura.statukma.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tsimura.statukma.entity.enums.StudyLevel;
 import com.tsimura.statukma.entity.enums.Ztype;
 import com.tsimura.statukma.entity.extra.Semester;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,6 +38,11 @@ public class Discipline extends BaseEntity {
     @JsonBackReference
     @JoinTable(name = "discipline_teacher", joinColumns = @JoinColumn(name = "teacher_id"), inverseJoinColumns = @JoinColumn(name = "discipline_id"))
     private Set<Teacher> teachers;
+
+    @OneToMany(mappedBy = "discipline")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @JsonIgnore
+    private List<Enrollment> enrollments;
 
     @ManyToOne
     private Speciality speciality;
